@@ -1,3 +1,3 @@
 # Sistem Teridistribusi
-Achmad Jadid
+Achmad Jadid 
 05111640000186
