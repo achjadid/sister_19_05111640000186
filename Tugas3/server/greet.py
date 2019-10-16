@@ -10,7 +10,7 @@ import threading
 class Server(object):
     def __init__(self):
         self.connected_device = []
-        self.connected_device_thread_job = []
+        self.connected_device_thread = []
 
     @Pyro4.expose
     def connected_device_list(self) -> str:
@@ -68,10 +68,10 @@ class Server(object):
         return 2
 
     @Pyro4.expose
-    def new_thread_job(self, id) -> str:
-        t = threading.Thread(target=self.__new_thread_job, args=(id,))
+    def new_thread(self, id) -> str:
+        t = threading.Thread(target=self.__new_thread, args=(id,))
         t.start()
-        self.connected_device_thread_job.append(t)
+        self.connected_device_thread.append(t)
         return self.ok()
 
     def __connect_heartbeat_server(self, id):
@@ -83,7 +83,7 @@ class Server(object):
             return None
         return server
 
-    def __new_thread_job(self, id):
+    def __new_thread(self, id):
         server = self.__connect_heartbeat_server(id)
         while True:
             try:
